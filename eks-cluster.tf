@@ -1,11 +1,12 @@
 module "eks" {
-  source          = "terraform-aws-modules/eks/aws"
-  cluster_name    = local.cluster_name
-  cluster_version = "1.18"
-  subnets         = module.vpc.private_subnets
+  source                       = "terraform-aws-modules/eks/aws"
+  cluster_name                 = local.cluster_name
+  cluster_version              = "1.18"
+  subnets                      = module.vpc.private_subnets
+  wait_for_cluster_interpreter = ["C:/Program Files/Git/bin/sh.exe", "-c"]
 
   tags = {
-    Environment = "training"
+    Environment = "lte"
     GithubRepo  = "terraform-aws-eks"
     GithubOrg   = "terraform-aws-modules"
   }
