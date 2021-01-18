@@ -33,11 +33,9 @@ pipeline {
             }
         }
         stage('Approval') {
-            steps {
-                input {
-                    message "Do you approve the Terraform plan and are you read to apply it?"
-                    ok "Yes, I approve. Apply the plan now."
-                }
+            input {
+                message "Do you approve the Terraform plan and are you read to apply it?"
+                ok "Yes, I approve. Apply the plan now."
             }
         }
         stage('Terraform Apply') {
