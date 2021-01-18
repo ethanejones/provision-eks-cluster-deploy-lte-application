@@ -32,13 +32,11 @@ pipeline {
                 bat 'terraform plan -destroy -no-color -out jenkinsplan'
             }
         }
-        stage('Approval') {
+        stage('Approve and Terraform Apply') {
             input {
                 message "Do you approve the Terraform plan and are you read to apply it?"
                 ok "Yes, I approve. Apply the plan now."
             }
-        }
-        stage('Terraform Apply') {
             steps {
                 bat 'terraform apply -input=false jenkinsplan'
             }
