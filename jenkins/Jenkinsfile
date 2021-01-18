@@ -6,7 +6,7 @@ pipeline {
         stage('Terraform Plan') {
             steps {
                 bat 'terraform init'
-                bat 'terraform plan'
+                bat 'terraform plan -no-color'
             }
         }
         stage('Approval') {
