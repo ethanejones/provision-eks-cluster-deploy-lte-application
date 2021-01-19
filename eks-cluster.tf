@@ -29,6 +29,12 @@ module "eks" {
       asg_desired_capacity          = 1
     },
   ]
+
+  depends_on = [
+    aws_iam_role_policy_attachment.example-AmazonEKSWorkerNodePolicy,
+    aws_iam_role_policy_attachment.example-AmazonEKS_CNI_Policy,
+    aws_iam_role_policy_attachment.example-AmazonEC2ContainerRegistryReadOnly,
+  ]
 }
 
 data "aws_eks_cluster" "cluster" {
