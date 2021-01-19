@@ -42,6 +42,10 @@ resource "kubernetes_deployment" "lteapplication" {
       }
     }
   }
+  depends_on = [
+    module.eks,
+    module.vpc,
+  ]
 }
 
 resource "kubernetes_service" "lteapplication" {
@@ -60,6 +64,8 @@ resource "kubernetes_service" "lteapplication" {
     type = "LoadBalancer"
   }
   depends_on = [
+    kubernetes_deployment.lteapplication,
     module.eks,
+    module.vpc,
   ]
 }
