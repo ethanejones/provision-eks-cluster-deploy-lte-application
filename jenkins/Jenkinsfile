@@ -3,7 +3,8 @@ pipeline {
         label 'windows'
     }
     environment {
-        TF_IN_AUTOMATION = 'true'
+        TF_IN_AUTOMATION = 'true',
+        TF_LOG = 'TRACE'
     }
     parameters {
         choice(name: 'TERRAFORM_ACTION', choices: ['apply', 'destroy'], description: 'What do you want to do?')
