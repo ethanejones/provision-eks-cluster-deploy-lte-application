@@ -59,4 +59,7 @@ resource "kubernetes_service" "lteapplication" {
 
     type = "LoadBalancer"
   }
+  depends_on = [
+    module.eks,
+  ]
 }
