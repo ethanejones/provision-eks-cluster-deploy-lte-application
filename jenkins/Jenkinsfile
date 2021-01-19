@@ -1,0 +1,49 @@
+pipeline {
+    agent {
+        label 'windows'
+    }
+    environment {
+        TF_IN_AUTOMATION = 'true'
+    }
+    parameters {
+        choice(name: 'TERRAFORM_ACTION', choices: ['apply', 'destroy'], description: 'What do you want to do?')
+    }
+    stages {
+        // The following stages handle the sequence to run 'terraform apply' to provision or destroy our infrastructure.
+        // We give the user the option to select 'apply' or 'destroy' and act accordingly.
+        // The user must approve the plan before action will be taken.
+        stage ('Terraform Init') {
+            steps {
+                bat 'terraform init'
+            }
+        }
+        // Create plan file to provision our infrastructure using Terraform
+        stage('Terraform Plan (Apply)') {
+            when {
+                expression { params.TERRAFORM_ACTION == 'apply'}
+            }
+            steps {
+                bat 'terraform plan -no-color -out jenkinsplan'
+            }
+        }
+        // Create plan file for destroying the infrastructure previously provisioned by Terraform
+        stage('Terraform Plan (Destroy)') {
+            when {
+                expression { params.TERRAFORM_ACTION == 'destroy'}
+            }
+            steps {
+                bat 'terraform plan -destroy -no-color -out jenkinsplan'
+            }
+        }
+        // Pause pipeline to allow the user to review and approve the plan
+        stage('Approve and Terraform Apply') {
+            input {
+                message "Do you approve the Terraform plan and are you ready to apply it?"
+                ok "Yes, I approve. Apply the plan now."
+            }
+            steps {
+                bat 'terraform apply -input=false jenkinsplan'
+            }
+        }
+    }
+}
