@@ -24,6 +24,11 @@ terraform {
       source  = "hashicorp/template"
       version = "2.2.0"
     }
+
+    kubernetes {
+      source  = "hashicorp/kubernetes"
+      version = "1.13.3"
+    }
   }
 
   required_version = "~> 0.14"
