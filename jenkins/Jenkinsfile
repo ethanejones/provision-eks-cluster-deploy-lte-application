@@ -3,7 +3,7 @@ pipeline {
         label 'windows'
     }
     environment {
-        TF_IN_AUTOMATION = 'true',
+        TF_IN_AUTOMATION = 'true'
         TF_LOG = 'TRACE'
     }
     parameters {
