@@ -4,7 +4,7 @@ pipeline {
     }
     environment {
         TF_IN_AUTOMATION = 'true'
-        TF_LOG = 'TRACE'
+        TF_LOG = 'DEBUG'
     }
     parameters {
         choice(name: 'TERRAFORM_ACTION', choices: ['apply', 'destroy'], description: 'What do you want to do?')
