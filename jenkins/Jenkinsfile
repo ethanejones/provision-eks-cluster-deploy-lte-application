@@ -51,7 +51,7 @@ pipeline {
                 expression { params.TERRAFORM_ACTION == 'apply'}
             }
             steps {
-                bat 'cmd /c jenkins/scripts/test-endpoint.cmd'
+                bat 'jenkins/scripts/test-endpoint.cmd'
             }
         }
     }
