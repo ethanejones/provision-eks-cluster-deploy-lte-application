@@ -45,5 +45,14 @@ pipeline {
                 bat 'terraform apply -input=false jenkinsplan'
             }
         }
+        // Validate that we can hit the REST endpoint (only if we did an apply)
+        stage('Validate REST Endpoint') {
+            when {
+                expression { params.TERRAFORM_ACTION == 'apply'}
+            }
+            steps {
+                bat 'jenkins/scripts/test-endpoint.cmd'
+            }
+        }
     }
 }
