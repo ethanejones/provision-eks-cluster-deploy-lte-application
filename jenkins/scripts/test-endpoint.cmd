@@ -46,5 +46,5 @@ IF %HTTP_STATUS% EQU 200 (
     echo ERROR: Could not get status [200] from URL in alloted time. Last status obtained: %HTTP_STATUS%
     exit /b !EXIT_CODE!
 ) ELSE (
-    timeout /t 5 > NUL
+    powershell Start-Sleep -s 5
 )
